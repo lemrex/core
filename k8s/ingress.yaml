@@ -10,7 +10,7 @@ spec:
   - host: ralf.com.ng  # or use IP for local test
     http:
       paths:
-      - path: /api/account
+      - path: /api/accounts
         pathType: Prefix
         backend:
           service:
