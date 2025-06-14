@@ -1,0 +1,10 @@
+# Ignore node_modules and .env files in all subdirectories
+**/node_modules/
+**/.env
+
+# Optional: Ignore logs
+**/*.log
+
+# Optional: Ignore OS or IDE files
+.DS_Store
+*.swp

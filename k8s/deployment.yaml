@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth
+  service: auth-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      imagePullSecrets:
+      - name: default-secret
+      containers:
+      - name: auth
+        image: auth-image
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: cbass-config
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "250m"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account
+  service: account-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: account
+  template:
+    metadata:
+      labels:
+        app: account
+    spec:
+      imagePullSecrets:
+      - name: default-secret
+      containers:
+      - name: account
+        image: account-image
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: cbass-config
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "250m"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transaction
+  service: transaction-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transaction
+  template:
+    metadata:
+      labels:
+        app: transaction
+    spec:
+      imagePullSecrets:
+      - name: default-secret
+      containers:
+      - name: transaction
+        image: transaction-image
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: cbass-config
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "250m"

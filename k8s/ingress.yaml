@@ -1,0 +1,47 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cbass-ingress
+annotations:
+  # REMOVE rewrite-target, it's not needed if your service expects the full path
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: ralf.com.ng  # or use IP for local test
+    http:
+      paths:
+      - path: /api/account
+        pathType: Prefix
+        backend:
+          service:
+            name: account
+            port:
+              number: 80
+      - path: /api/transaction
+        pathType: Prefix
+        backend:
+          service:
+            name: transaction
+            port:
+              number: 80
+      - path: /api/summary
+        pathType: Prefix
+        backend:
+          service:
+            name: auth # or summary service
+            port:
+              number: 80
+      - path: /api/login
+        pathType: Prefix
+        backend:
+          service:
+            name: auth
+            port:
+              number: 80
+      - path: /api/register
+        pathType: Prefix
+        backend:
+          service:
+            name: auth
+            port:
+              number: 80
