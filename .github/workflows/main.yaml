@@ -55,25 +55,38 @@ jobs:
           sed -i "s|account-image|swr.af-south-1.myhuaweicloud.com/ralf/account:${{ github.sha }}|g" k8s/deployment.yaml
           sed -i "s|transaction-image|swr.af-south-1.myhuaweicloud.com/ralf/transaction:${{ github.sha }}|g" k8s/deployment.yaml
 
-      - name: Apply ConfigMap to CCE
+      # - name: Apply ConfigMap to CCE
+      #   run: |
+      #     kubectl apply -f - <<EOF
+      #     apiVersion: v1
+      #     kind: ConfigMap
+      #     metadata:
+      #       name: cbass-config
+      #     data:
+      #       PORT: "3000"
+      #       NAME: "cbass"
+      #       JWT_SECRET: "${{ secrets.JWT_SECRET }}"
+      #       SHARED_DB_URI: "${{ secrets.SHARED_DB_URI }}"
+      #       TENANT_DB_PREFIX: "${{ secrets.TENANT_DB_PREFIX }}"
+      #       AUTH_VERIFY_URL: "${{ secrets.AUTH_VERIFY_URL }}"
+      #     EOF
+
+      - name: Apply ConfigMap using envsubst
         run: |
-          kubectl apply -f - <<EOF
-          apiVersion: v1
-          kind: ConfigMap
-          metadata:
-            name: cbass-config
-          data:
-            PORT: "3000"
-            JWT_SECRET: "${{ secrets.JWT_SECRET }}"
-            SHARED_DB_URI: "${{ secrets.SHARED_DB_URI }}"
-            TENANT_DB_PREFIX: "${{ secrets.TENANT_DB_PREFIX }}"
-            AUTH_VERIFY_URL: "${{ secrets.AUTH_VERIFY_URL }}"
-          EOF
-
-
+          sudo apt-get install -y gettext-base
+          
+          export JWT_SECRET="${{ secrets.JWT_SECRET }}"
+          export SHARED_DB_URI="${{ secrets.SHARED_DB_URI }}"
+          export TENANT_DB_PREFIX="${{ secrets.TENANT_DB_PREFIX }}"
+          export AUTH_VERIFY_URL="${{ secrets.AUTH_VERIFY_URL }}"
+          
+          envsubst < k8s/configmap-template.yaml | kubectl apply -f -
 
 
       - name: Apply K8s manifests to CCE
         run: |
           kubectl apply -f k8s/
 
+
+
+          
