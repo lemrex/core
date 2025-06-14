@@ -3,7 +3,7 @@ name: CI/CD to Huawei SWR and CCE
 on:
   push:
     branches:
-      - mastered
+      - main
 
 env:
   REGION: af-south-1
@@ -22,7 +22,7 @@ jobs:
         with:
           access-key-id: ${{ secrets.ACCESSKEY }}
           access-key-secret: ${{ secrets.SECRETACCESSKEY }}
-          region: ${{ env.REGION }}
+          region: af-south-1
 
       - name: Build and push Docker images
         run: |
@@ -62,6 +62,7 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           SHARED_DB_URI: ${{ secrets.SHARED_DB_URI }}
           TENANT_DB_PREFIX: ${{ secrets.TENANT_DB_PREFIX }}
+          AUTH_VERIFY_URL: ${AUTH_VERIFY_URL}
 
 
       - name: Apply K8s manifests to CCE
