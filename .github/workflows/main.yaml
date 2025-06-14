@@ -26,13 +26,13 @@ jobs:
 
       - name: Build and push Docker images
         run: |
-          docker build -t $REGISTRY/auth:${{ github.sha }} ./auth
+          docker build -t $REGISTRY/auth:${{ github.sha }} ./auth-service
           docker push $REGISTRY/auth:${{ github.sha }}
 
-          docker build -t $REGISTRY/account:${{ github.sha }} ./account
+          docker build -t $REGISTRY/account:${{ github.sha }} ./account-service
           docker push $REGISTRY/account:${{ github.sha }}
 
-          docker build -t $REGISTRY/transaction:${{ github.sha }} ./transaction
+          docker build -t $REGISTRY/transaction:${{ github.sha }} ./transaction-service
           docker push $REGISTRY/transaction:${{ github.sha }}
 
   deploy:
@@ -51,18 +51,31 @@ jobs:
 
       - name: Update image versions in deployments
         run: |
-          sed -i "s|auth-image|swr.af-south-1.myhuaweicloud.com/ralf/auth:${{ github.sha }}|g" deployment.yaml
-          sed -i "s|account-image|swr.af-south-1.myhuaweicloud.com/ralf/account:${{ github.sha }}|g" deployment.yaml
-          sed -i "s|transaction-image|swr.af-south-1.myhuaweicloud.com/ralf/transaction:${{ github.sha }}|g" deployment.yaml
+          sed -i "s|auth-image|swr.af-south-1.myhuaweicloud.com/ralf/auth:${{ github.sha }}|g" k8s/deployment.yaml
+          sed -i "s|account-image|swr.af-south-1.myhuaweicloud.com/ralf/account:${{ github.sha }}|g" k8s/deployment.yaml
+          sed -i "s|transaction-image|swr.af-south-1.myhuaweicloud.com/ralf/transaction:${{ github.sha }}|g" k8s/deployment.yaml
 
-      - name: Generate final configmap from template
+      - name: Apply ConfigMap to CCE
         run: |
-          envsubst < config-template.yaml > configmap.yaml
+          cat <<EOF | envsubst | kubectl apply -f -
+          apiVersion: v1
+          kind: ConfigMap
+          metadata:
+            name: cbass-config
+          data:
+            PORT: "3000"
+            JWT_SECRET: ${JWT_SECRET}
+            SHARED_DB_URI: ${SHARED_DB_URI}
+            TENANT_DB_PREFIX: ${TENANT_DB_PREFIX}
+            AUTH_VERIFY_URL: ${AUTH_VERIFY_URL}
+          EOF
         env:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           SHARED_DB_URI: ${{ secrets.SHARED_DB_URI }}
           TENANT_DB_PREFIX: ${{ secrets.TENANT_DB_PREFIX }}
-          AUTH_VERIFY_URL: ${AUTH_VERIFY_URL}
+          AUTH_VERIFY_URL: ${{ secrets.AUTH_VERIFY_URL }}
+
+
 
 
       - name: Apply K8s manifests to CCE
