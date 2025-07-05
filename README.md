@@ -1,5 +1,3 @@
----
-
 ## 🚀 Getting Started
 
 ### 1. Clone the repo
@@ -106,4 +104,3 @@ MIT License – feel free to use and adapt this sample for educational or commer
 
 ```
 
-```
