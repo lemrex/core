@@ -1,71 +1,3 @@
-Here's a complete and professional `README.md` file for your **CBaaS (Core Banking as a Service)** sample project:
-
----
-
-```markdown
-# CBaaS - Core Banking as a Service (Sample Project)
-
-A sample implementation of a **multi-tenant core banking system** designed as a set of microservices with support for tenant-level database isolation, secure authentication, and modern frontend integration. Each tenant can create accounts, perform credit/debit transactions, and view financial summaries.
-
----
-
-## 🏗️ Architecture Overview
-
-CBaaS follows a microservices architecture with **per-tenant database isolation**:
-
-```
-
-```
-                             ┌─────────────────────┐
-                             │   Authentication    │
-                             │     (Shared DB)     │
-                             └────────┬────────────┘
-                                      │
-```
-
-┌──────────────────────┐     ┌───────────▼────────────┐     ┌────────────────────┐
-│  Tenant DB Metadata  │◄────┤  API Gateway / Router  ├────►│   Token Validator   │
-└──────────────────────┘     └────┬─────────────┬─────┘     └────────────────────┘
-│             │
-┌────────▼───┐   ┌─────▼────────┐
-│ Account    │   │ Transaction  │
-│ Service    │   │ Service      │
-└────┬───────┘   └────┬─────────┘
-│                │
-┌──────────▼────────┐ ┌─────▼────────────┐
-│ Tenant DB (acct)  │ │ Tenant DB (txn)  │
-└───────────────────┘ └──────────────────┘
-
-````
-
----
-
-## ✨ Features
-
-- 🔐 **JWT-based Authentication** (single shared service)
-- 🏦 **Per-tenant PostgreSQL DBs or RDS instances**
-- 💳 **Account and Transaction APIs** with debit/credit support
-- 📊 **Dashboard UI** for account balances and recent transactions
-- 🌗 **Modern frontend** with light/dark mode
-- ☁️ **Cloud SDK integration** (e.g. Huawei Cloud for dynamic RDS provisioning)
-- 📈 Optional **logging and tracing** for observability
-
----
-
-## 📁 Project Structure
-
-```bash
-cbaas-sample/
-├── auth-service/            # Handles user registration/login
-├── account-service/         # Account creation and balance handling
-├── transaction-service/     # Credit and debit operations
-├── tenant-db-manager/       # Creates and initializes tenant databases
-├── frontend/                # React or Next.js frontend
-├── shared/                  # Common utils (e.g. token validator, DB pool)
-├── .env                     # Environment variables
-└── README.md
-````
-
 ---
 
 ## 🚀 Getting Started
@@ -174,5 +106,4 @@ MIT License – feel free to use and adapt this sample for educational or commer
 
 ```
 
-Let me know if you want a version tailored for **Docker**, **Kubernetes**, or **monorepo structure**.
 ```
