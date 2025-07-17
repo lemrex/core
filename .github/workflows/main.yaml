@@ -35,6 +35,9 @@ jobs:
           docker build -t $REGISTRY/transaction:${{ github.sha }} ./transaction-service
           docker push $REGISTRY/transaction:${{ github.sha }}
 
+          docker build -t $REGISTRY/usage:${{ github.sha }} ./usage-service
+          docker push $REGISTRY/usage:${{ github.sha }}
+
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -54,6 +57,7 @@ jobs:
           sed -i "s|auth-image|swr.af-south-1.myhuaweicloud.com/ralf/auth:${{ github.sha }}|g" k8s/deployment.yaml
           sed -i "s|account-image|swr.af-south-1.myhuaweicloud.com/ralf/account:${{ github.sha }}|g" k8s/deployment.yaml
           sed -i "s|transaction-image|swr.af-south-1.myhuaweicloud.com/ralf/transaction:${{ github.sha }}|g" k8s/deployment.yaml
+          sed -i "s|usage-image|swr.af-south-1.myhuaweicloud.com/ralf/usage:${{ github.sha }}|g" k8s/deployment.yaml
 
       - name: Apply ConfigMap to CCE
         run: |
