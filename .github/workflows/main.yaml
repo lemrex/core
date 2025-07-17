@@ -147,7 +147,7 @@ jobs:
           accessKey: ${{ secrets.ACCESSKEY }}
           secretKey: ${{ secrets.SECRETACCESSKEY }}
           region: af-south-1
-          obsBucket: vuejs
+          obsBucket: ralf-tf
           localPath: analytics/out/
 
 
