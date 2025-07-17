@@ -1,0 +1,16 @@
+{
+  "name": "usage-service",
+  "version": "1.0.0",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^5.1.0",
+    "kafkajs": "^2.2.4",
+    "pg": "^8.11.1"
+  }
+}

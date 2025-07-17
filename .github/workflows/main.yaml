@@ -69,6 +69,13 @@ jobs:
             SHARED_DB_URI: "${{ secrets.SHARED_DB_URI }}"
             TENANT_DB_PREFIX: "${{ secrets.TENANT_DB_PREFIX }}"
             AUTH_VERIFY_URL: "${{ secrets.AUTH_VERIFY_URL }}"
+            KAFKA_BROKERS: "${{ secrets.KAFKA_BROKERS }}"
+            KAFKA_TOPIC: "${{ secrets.KAFKA_TOPIC }}"
+            PG_HOST: "${{ secrets.PG_HOST }}"
+            PG_PORT: "${{ secrets.PG_PORT }}"
+            PG_USER: "${{ secrets.PG_USER }}"
+            PG_PASSWORD: "${{ secrets.PG_PASSWORD }}"
+            PG_DATABASE: "${{ secrets.PG_DATABASE }}"
           EOF
 
 
@@ -77,6 +84,3 @@ jobs:
         run: |
           kubectl apply -f k8s/
 
-
-
-          
