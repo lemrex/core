@@ -50,12 +50,12 @@ const Dashboard = ({ onLogout }) => {
       fetchAllData();
     }, [fetchAllData]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    // Trigger auth state update
-    window.dispatchEvent(new Event('authChange'));
-    navigate('/');
-  };
+  // const handleLogout = () => {
+  //   localStorage.removeItem('token');
+  //   // Trigger auth state update
+  //   window.dispatchEvent(new Event('authChange'));
+  //   navigate('/');
+  // };
 
 
   const formatCurrency = (amount) => {
