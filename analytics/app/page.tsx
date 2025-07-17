@@ -36,8 +36,8 @@ export default function Dashboard() {
       try {
         setLoading(true)
         const [costResponse, summaryResponse] = await Promise.all([
-          fetch("http://localhost:4000/stats/monthly-cost"),
-          fetch("http://localhost:4000/stats/summary"),
+          fetch("http://ralf.com.ng/stats/monthly-cost"),
+          fetch("http://ralf.com.ng/stats/summary"),
         ])
 
         if (!costResponse.ok || !summaryResponse.ok) {
