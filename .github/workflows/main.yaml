@@ -84,3 +84,66 @@ jobs:
         run: |
           kubectl apply -f k8s/
 
+  build-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: Change to frontend directory
+        working-directory: ./frontend
+        run: |
+          npm ci
+          npm run build          
+
+
+      - name: List Build Directory
+        run: ls frontend/build/
+
+      - name: Huawei Cloud OBS Sync Action
+        uses: lemrex/Sync-OBS@v1.0.0
+        with:
+          accessKey: ${{ secrets.ACCESSKEY }}
+          secretKey: ${{ secrets.SECRETACCESSKEY }}
+          region: af-south-1
+          obsBucket: vuejs
+          localPath: frontend/build/  
+
+  build-analytics:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: Change to frontend directory
+        working-directory: ./analytics
+        run: |
+          npm ci
+          npm run build          
+
+
+      - name: List Build Directory
+        run: ls analytics/out/
+
+      - name: Huawei Cloud OBS Sync Action
+        uses: lemrex/Sync-OBS@v1.0.0
+        with:
+          accessKey: ${{ secrets.ACCESSKEY }}
+          secretKey: ${{ secrets.SECRETACCESSKEY }}
+          region: af-south-1
+          obsBucket: ralf-tf
+          localPath: analytics/out/
