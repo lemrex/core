@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState, useCallback } from "react"
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import "./Dashboard.css"
 import { toast } from "react-toastify";
 import axios from 'axios';
@@ -17,7 +17,7 @@ const Dashboard = ({ onLogout }) => {
   const [selectedAccount, setSelectedAccount] = useState("")
   const [transactionAmount, setTransactionAmount] = useState("")
   const [transactionType, setTransactionType] = useState("")
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const token = localStorage.getItem('token');
 
