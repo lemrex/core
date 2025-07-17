@@ -96,13 +96,16 @@ jobs:
         with:
           node-version: 18
           cache: npm
+          
+      - name: List Build Directory
+        run: ls
 
-      - name: Change to frontend directory
-        working-directory: ./frontend
-        run: |
-          npm ci
-          npm run build          
 
+      - name: Install Dependencies
+        run: cd frontend && ls   
+
+      - name: run build
+        run: npm ci && npm run build     
 
       - name: List Build Directory
         run: ls frontend/build/
@@ -129,12 +132,14 @@ jobs:
           node-version: 18
           cache: npm
 
-      - name: Change to frontend directory
-        working-directory: ./analytics
-        run: |
-          npm ci
-          npm run build          
+      - name: List Build Directory
+        run: ls
 
+      - name: Install Dependencies
+        run: cd analytics && ls   
+
+      - name: run build
+        run: npm ci && npm run build     
 
       - name: List Build Directory
         run: ls analytics/out/
