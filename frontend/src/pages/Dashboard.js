@@ -30,9 +30,9 @@ const Dashboard = ({ onLogout }) => {
       const headers = { Authorization: `Bearer ${token}` };
 
       const [accountRes, transactionRes, summaryRes] = await Promise.all([
-        axios.get('http://localhost:3002/api/accounts', { headers }),
-        axios.get('http://localhost:3003/api/transaction/recent', { headers }),
-        axios.get('http://localhost:3003/api/summary', { headers })
+        axios.get('http://ralf.com.ng/api/accounts', { headers }),
+        axios.get('http://ralf.com.ng/api/transaction/recent', { headers }),
+        axios.get('http://ralf.com.ng/api/summary', { headers })
       ]);
 
       setAccounts(accountRes.data.accounts || accountRes.data || []);
@@ -87,7 +87,7 @@ const Dashboard = ({ onLogout }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:3002/api/accounts", {
+      const response = await fetch("http://ralf.com.ng/api/accounts", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -127,8 +127,8 @@ const Dashboard = ({ onLogout }) => {
     try {
       const endpoint =
         transactionType === "credit"
-          ? "http://localhost:3003/api/transaction/credit"
-          : "http://localhost:3003/api/transaction/debit"
+          ? "http://ralf.com.ng/api/transaction/credit"
+          : "http://ralf.com.ng/api/transaction/debit"
 
       const response = await fetch(endpoint, {
         method: "POST",

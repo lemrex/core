@@ -13,7 +13,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3000/api/register', { tenantName, email, password });
+      await axios.post('http://ralf.com.ng/api/register', { tenantName, email, password });
       toast.success('Registration successful. Please login.');
       navigate('/');
     } catch (err) {
