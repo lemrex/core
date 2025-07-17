@@ -101,3 +101,37 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "250m"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: usgae
+  labels:
+    app: usage-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: usage
+  template:
+    metadata:
+      labels:
+        app: usage
+    spec:
+      imagePullSecrets:
+      - name: default-secret
+      containers:
+      - name: usage
+        image: usage-image
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: cbass-config
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "250m"

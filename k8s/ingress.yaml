@@ -28,7 +28,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: auth # or summary service
+            name: transaction 
             port:
               number: 80
       - path: /api/auth
@@ -43,5 +43,12 @@ spec:
         backend:
           service:
             name: auth
+            port:
+              number: 80
+      - path: /stats
+        pathType: Prefix
+        backend:
+          service:
+            name: usage
             port:
               number: 80
