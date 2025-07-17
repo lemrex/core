@@ -130,10 +130,10 @@ jobs:
 
 
       - name: Install Dependencies
-        run: cd frontend && npm ci
+        run: cd analytics && npm ci
 
-      - name: Build Frontend
-        run: cd frontend && npm run build
+      - name: Build Analytic Frontend
+        run: cd analytics && npm run build
 
       - name: list directory
         run: ls -la analytics
