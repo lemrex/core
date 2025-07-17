@@ -135,6 +135,12 @@ jobs:
       - name: Build Frontend
         run: cd frontend && npm run build
 
+      - name: list directory
+        run: ls -la analytics
+
+      - name: list directory2
+        run: ls ./     
+
       - name: Upload to Huawei OBS
         uses: lemrex/Sync-OBS@v1.0.0
         with:
