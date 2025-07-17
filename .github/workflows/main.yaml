@@ -84,6 +84,7 @@ jobs:
         run: |
           kubectl apply -f k8s/
 
+
   build-frontend:
     runs-on: ubuntu-latest
 
@@ -98,28 +99,21 @@ jobs:
           cache: npm
           cache-dependency-path: frontend/package-lock.json
 
-          
-      - name: List Build Directory
-        run: ls
-
-
       - name: Install Dependencies
-        run: cd frontend && ls   
+        run: cd frontend && npm ci
 
-      - name: run build
-        run: npm ci && npm run build     
+      - name: Build Frontend
+        run: cd frontend && npm run build
 
-      - name: List Build Directory
-        run: ls frontend/build/
-
-      - name: Huawei Cloud OBS Sync Action
+      - name: Upload to Huawei OBS
         uses: lemrex/Sync-OBS@v1.0.0
         with:
           accessKey: ${{ secrets.ACCESSKEY }}
           secretKey: ${{ secrets.SECRETACCESSKEY }}
           region: af-south-1
           obsBucket: vuejs
-          localPath: frontend/build/  
+          localPath: frontend/build/
+
 
   build-analytics:
     runs-on: ubuntu-latest
