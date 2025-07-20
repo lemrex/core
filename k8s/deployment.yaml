@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: auth
+
     spec:
       imagePullSecrets:
       - name: default-secret
@@ -31,7 +32,6 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "250m"
-
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -48,6 +48,7 @@ spec:
     metadata:
       labels:
         app: account
+
     spec:
       imagePullSecrets:
       - name: default-secret
@@ -66,7 +67,6 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "250m"
-
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -83,6 +83,7 @@ spec:
     metadata:
       labels:
         app: transaction
+
     spec:
       imagePullSecrets:
       - name: default-secret
@@ -105,7 +106,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: usgae
+  name: usage
   labels:
     app: usage-service
 spec:
@@ -117,6 +118,7 @@ spec:
     metadata:
       labels:
         app: usage
+
     spec:
       imagePullSecrets:
       - name: default-secret
