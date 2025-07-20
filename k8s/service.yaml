@@ -2,11 +2,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: auth
+  labels:
+    app: auth
+    service: auth
 spec:
   selector:
     app: auth
   ports:
-  - name: http        # <── required by Istio / Kiali
+  - name: http
     port: 80
     targetPort: 3000
 ---
@@ -14,6 +17,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: account
+  labels:
+    app: account
+    service: account
 spec:
   selector:
     app: account
@@ -26,6 +32,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: transaction
+  labels:
+    app: transaction
+    service: transaction
 spec:
   selector:
     app: transaction
@@ -38,6 +47,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: usage
+  labels:
+    app: usage
+    service: usage
 spec:
   selector:
     app: usage
