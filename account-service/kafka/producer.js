@@ -4,9 +4,9 @@ const { Kafka, Partitioners } = require('kafkajs');
 const kafka = new Kafka({
   clientId: 'account-service',
   brokers: [
-    '121.91.158.142:9094',
-    '203.123.80.126:9094',
-    '110.238.75.61:9094',
+    '192.168.1.223:9092',
+    // '203.123.80.126:9094',
+    // '110.238.75.61:9094',
   ],
 });
 
