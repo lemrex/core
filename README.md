@@ -7,7 +7,7 @@ git clone https://github.com/your-org/cbaas-sample.git
 cd cbaas-sample
 ```
 
-### 2. Set up environment variables
+### 2. Set up environment variable
 
 Create a `.env` file in each service directory with appropriate variables (DB URL, JWT secret, cloud credentials, etc.)
 
