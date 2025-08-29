@@ -11,7 +11,15 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Enable CORS (allow all origins or configure as needed)
-app.use(cors());
+// app.use(cors());
+
+app.use(
+  cors({
+    origin: ['http://analytics.ralf.com.ng'], // allow your frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
 
 // Parse JSON bodies
 app.use(express.json());
